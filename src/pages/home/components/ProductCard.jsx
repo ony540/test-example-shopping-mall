@@ -32,14 +32,21 @@ const ProductCard = ({
     navigate(pathToUrl(pageRoutes.productDetail, { productId: id }));
   };
   const handleClickAddCartButton = ev => {
-    onClickAddCartButton(ev, product);
+    onClickAddCartButton?.(ev, product);
   };
   const handleClickPurchaseButton = ev => {
-    onClickPurchaseButton(ev, product);
+    onClickPurchaseButton?.(ev, product);
   };
 
   return (
-    <Grid item xs={6} sm={6} md={3} onClick={handleClickItem}>
+    <Grid
+      item
+      xs={6}
+      sm={6}
+      md={3}
+      onClick={handleClickItem}
+      data-testid="product-card"
+    >
       <Card sx={{ maxWidth: 345, cursor: 'pointer' }}>
         <CardMedia component="img" height="140" image={images?.[0]} />
         <CardContent>
