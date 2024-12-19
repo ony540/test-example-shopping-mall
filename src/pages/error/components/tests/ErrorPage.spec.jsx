@@ -22,6 +22,6 @@ it('"뒤로 이동" 버튼 클릭시 뒤로 이동하는 navigate(-1) 함수가 
   const button = await screen.getByRole('button', { name: '뒤로 이동' });
 
   await user.click(button);
-
+  // -1 을 인자로 받아 호출되었는지 확인
   expect(navigateFn).toHaveBeenNthCalledWith(1, -1);
 });
