@@ -23,10 +23,12 @@ export const handlers = [
     const products = data.products.filter(
       (_, index) => index >= offset && index < offset + limit,
     );
+    //모킹 데이터를 페이징 단위로 잘라 반환
 
     return res(
       ctx.status(200),
       ctx.json({ products, lastPage: data.products.length <= offset + limit }),
+      //products 상품들, lastPage 인지 불린값
     );
   }),
   rest.get(`${API_DOMAIN}${apiRoutes.profile}`, (req, res, ctx) => {
