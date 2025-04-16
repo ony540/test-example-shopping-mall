@@ -5,6 +5,7 @@ import React from 'react';
 import { Toaster } from 'react-hot-toast';
 import { MemoryRouter } from 'react-router-dom';
 
+// tanstacQuery 모킹을 위한 Provider
 export default async (component, options = {}) => {
   const { routerProps } = options;
   const user = userEvent.setup();
@@ -13,7 +14,7 @@ export default async (component, options = {}) => {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
-        // ✅ turns retries off
+        // ✅ turns retries off - 기본적으로 3번 실행함
         retry: false,
       },
     },
