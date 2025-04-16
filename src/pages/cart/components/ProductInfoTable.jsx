@@ -7,6 +7,8 @@ import { useUserStore } from '@/store/user';
 import { pick } from '@/utils/common';
 
 const ProductInfoTable = () => {
+  // 테스트 실행 전에 zustand 스토어의 state를 모킹
+  // state, api에 대한 제어 코드를 통합 테스트 대상 컴포넌트로 응집
   const { cart, removeCartItem, changeCartItemCount } = useCartStore(state =>
     pick(state, 'cart', 'removeCartItem', 'changeCartItemCount'),
   );

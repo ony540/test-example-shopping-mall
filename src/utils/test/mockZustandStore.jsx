@@ -2,6 +2,7 @@ import { useCartStore } from '@/store/cart';
 import { useFilterStore } from '@/store/filter';
 import { useUserStore } from '@/store/user';
 
+// 기존의 스테이트를 변경하기
 const mockStore = (hook, state) => {
   const initStore = hook.getState();
   hook.setState({ ...initStore, ...state }, true);
