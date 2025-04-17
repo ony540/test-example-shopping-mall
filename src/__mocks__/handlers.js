@@ -9,7 +9,7 @@ export const handlers = [
   ...[
     apiRoutes.users,
     apiRoutes.product,
-    apiRoutes.categories,
+    apiRoutes.categories, // categories모킹
     apiRoutes.couponList,
   ].map(path =>
     rest.get(`${API_DOMAIN}${path}`, (_, res, ctx) =>
