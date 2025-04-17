@@ -7,6 +7,7 @@ import Payment from '@/pages/purchase/components/Payment';
 import { mockUseCartStore } from '@/utils/test/mockZustandStore';
 import render from '@/utils/test/render';
 
+// 카트 모킹킹
 beforeEach(() => {
   mockUseCartStore({
     cart: {
@@ -38,6 +39,7 @@ beforeEach(() => {
   });
 });
 
+// 폼프로바이더 감싸기
 const TestPayment = (props = {}) => {
   const methods = useForm({
     defaultValues: {

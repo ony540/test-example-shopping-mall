@@ -6,6 +6,7 @@ import { NO_COUPON_ID } from '@/constants';
 import ShippingInformationForm from '@/pages/purchase/components/ShippingInformationForm';
 import render from '@/utils/test/render';
 
+//FormProvider를 사용한 모의 폼 생성
 const TestForm = props => {
   const methods = useForm({
     defaultValues: {
