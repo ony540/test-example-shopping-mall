@@ -5,10 +5,7 @@ import React from 'react';
 import PriceSummary from '../PriceSummary';
 
 import { pageRoutes } from '@/apiRoutes';
-import {
-  mockUseCartStore,
-  mockUseUserStore,
-} from '@/utils/test/mockZustandStore';
+import { mockUseCartStore } from '@/utils/test/mockZustandStore';
 import render from '@/utils/test/render';
 
 const navigateFn = vi.fn();
@@ -18,11 +15,16 @@ vi.mock('react-router-dom', async () => {
   return {
     ...original,
     useNavigate: () => navigateFn,
+    // 이거는 왜하지
+    useLocation: () => ({
+      pathname: 'pathname',
+    }),
   };
 });
 
 beforeEach(() => {
-  mockUseUserStore({ user: { id: 10 } });
+  // 할필요 없음
+  // mockUseUserStore({ user: { id: 10 } });
   mockUseCartStore({
     cart: {
       6: {
@@ -52,28 +54,20 @@ beforeEach(() => {
         count: 4,
       },
     },
+    // 이 두 정보 따로 필요!! store확인
+    totalCount: 7,
+    totalPrice: 4195,
   });
 });
 
-it('총 개수가 2개이다', async () => {
+it('총 구매 아이템 수량과 가격이 노출된다("총 7개, $4,195.00")', async () => {
   await render(<PriceSummary />);
 
-  expect(screen.getAllByText('총 2개')).toBeInTheDocument();
+  //getAllByText이 아니라 getByText
+  expect(screen.getAllByText('총 7개, $4,195.00')).toBeInTheDocument();
 });
 
-it('특정 아이템의 수량이 변경되었을 때 값이 재계산되어 올바르게 업데이트 된다', async () => {
-  const { user } = await render(<PriceSummary />);
-  const [firstItem] = screen.getAllByRole('row');
-
-  const input = within(firstItem).getByRole('textbox');
-  await user.clear(input);
-  await user.type(input, '5');
-
-  // 2427 + 809 * 2 = 4045
-  expect(within(firstItem).getByText('$4,045.00')).toBeInTheDocument();
-});
-
-it('특정 아이템의 수량이 1000개로 변경될 경우 "최대 999개 까지 가능합니다!"라고 경고 문구가 노출된다', async () => {
+it('구매하기 버튼을 클릭할 경우 "/purchase"경로와 함께 navigate 함수가 호출된다', async () => {
   const { user } = await render(<PriceSummary />);
 
   await user.click(screen.getByText('구매하기'));
